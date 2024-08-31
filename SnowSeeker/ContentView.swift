@@ -7,22 +7,28 @@
 
 import SwiftUI
 
-struct User: Identifiable {
-    let id = UUID()
-    var name: String
+struct UserView: View {
+    var body: some View {
+        Group {
+            Text("Name: Adam")
+            Text("Country: Sweden")
+            Text("Pets: No pets")
+        }
+        .font(.title)
+    }
 }
 
 struct ContentView: View {
-    @State private var selected: User? = nil
+    @Environment(\.horizontalSizeClass) var horizontalSizeClass
     
     var body: some View {
-        Button("Tapp me") {
-            selected = User(name: "Adam")
+        if horizontalSizeClass == .compact {
+            VStack(content: UserView.init)
+        } else {
+            HStack(content: UserView.init)
         }
-        .sheet(item: $selected) { user in
-            Text(user.name)
-                .presentationDetents([.medium, .large])
-        }
+        
+        
     }
 }
 
