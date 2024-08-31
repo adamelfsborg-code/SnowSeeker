@@ -7,15 +7,26 @@
 
 import SwiftUI
 
+struct User: Identifiable {
+    let id = UUID()
+    var name: String
+}
+
 struct ContentView: View {
+    @State private var selected: User? = nil
+    @State private var isShwoing: Bool = false
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        Button("Tapp me") {
+            selected = User(name: "Adam")
+            isShwoing = true
         }
-        .padding()
+        .alert("Welcome", isPresented: $isShwoing, presenting: selected) { user in
+            Text(user.name)
+        }
+        .sheet(item: $selected) { user in
+            Text(user.name)
+        }
     }
 }
 
