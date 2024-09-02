@@ -20,6 +20,10 @@ struct Resort: Codable, Identifiable, Hashable {
     var runs: Int
     var facilities: [String]
     
+    var facilityTypes: [Facility] {
+        facilities.map(Facility.init)
+    }
+    
     var sizeSymbol: String {
         switch self.size {
         case 1: "Small"
